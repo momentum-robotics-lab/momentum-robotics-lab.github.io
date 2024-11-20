@@ -1,6 +1,6 @@
 ---
 layout: member
-title: Bardienus Duisterhof
+title: Bardienus P. Duisterhof
 alumni: false 
 profile_name: Bardienus Duisterhof
 abbrev: B. Duisterhof
@@ -11,5 +11,7 @@ scholar: LLsYMFYAAAAJ
 # twitter: annaneupenn
 image: /images/members/main_pic_Bardienus_Duisterhof.jpeg
 website: https://bart-ai.com
+twitter: https://x.com/BDuisterhof
+linkedin: https://www.linkedin.com/in/duisterhof/
 ---
 
