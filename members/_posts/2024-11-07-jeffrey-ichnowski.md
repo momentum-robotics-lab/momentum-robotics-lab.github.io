@@ -6,6 +6,7 @@ position: Principal Investigator
 email: jichnow at cmu.edu
 scholar: 7CKFg9EAAAAJ
 image: /images/members/jeff_ichnowski.jpg
+website: https://ichnow.ski/
 ---
 
 ### Assistant Professor at CMU Robotics Institute
