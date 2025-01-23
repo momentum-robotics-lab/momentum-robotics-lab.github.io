@@ -1,6 +1,6 @@
-name: Riggleman Research Lab
-description: Computational research on polymer and glassy materials from the Riggleman Lab at the University of Pennsylvania
-url: http://rrgroup.seas.upenn.edu
+name: Momentum Lab
+description: At Carnegie Mellon University
+url: <URL>
 
 markdown: kramdown
 permalink: /:categories/:title/
