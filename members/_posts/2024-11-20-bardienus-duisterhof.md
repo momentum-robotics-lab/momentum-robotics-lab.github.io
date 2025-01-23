@@ -3,7 +3,7 @@ layout: member
 title: Bardienus P. Duisterhof
 alumni: false 
 profile_name: Bardienus Duisterhof
-abbrev: B. Duisterhof
+abbrev: B. P. Duisterhof
 position: PhD Student
 research: Vision foundation models for scalable automation.
 email: bduister at andrew.cmu.edu
