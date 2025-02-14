@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 # jekyll
-gem "jekyll", "~> 4.2"
+gem "jekyll", "~> 3.7"
 gem "sassc"
 gem "webrick"
 gem 'kramdown'
