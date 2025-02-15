@@ -18,6 +18,7 @@ git fetch --all
 git reset --hard origin/master
 # regenerate site content
 cd -
+bundle install
 jekyll build
 cd -
 # commmit changes and push to remote
