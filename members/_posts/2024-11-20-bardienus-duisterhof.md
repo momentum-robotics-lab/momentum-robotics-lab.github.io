@@ -2,7 +2,7 @@
 layout: member
 title: Bardienus P. Duisterhof
 alumni: false 
-profile_name: Bardienus Duisterhof
+profile_name: Bardienus P. Duisterhof
 abbrev: B. P. Duisterhof
 position: PhD Student
 research: Vision foundation models for scalable automation.

@@ -2,6 +2,7 @@
 layout: member
 title: Jeffrey Ichnowski
 abbrev: J. Ichnowski
+profile_name: Jeffrey Ichnowski
 position: Principal Investigator
 email: jichnow at cmu.edu
 scholar: 7CKFg9EAAAAJ
