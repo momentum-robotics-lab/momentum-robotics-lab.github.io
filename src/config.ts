@@ -127,6 +127,16 @@ export const siteConfig = {
         googleScholar: "https://scholar.google.com/citations?user=HRKvLJEAAAAJ",
         twitter: "https://x.com/jeff_yy_ke",
         linkedin: "https://www.linkedin.com/in/jeffke/"
+      },
+      {
+        name: "Rajath Aralikatti",
+        research: "Manipulation using 3D Vision models",
+        email: "rajathc@cs.cmu.edu",
+        photo: "/photos/rajath_aralikatti.jpg",
+        googleScholar: "https://scholar.google.com/citations?user=bw0n3Q0AAAAJ&hl=en",
+        twitter: "",
+        linkedin: "https://www.linkedin.com/in/rajath-aralikatti/",
+        website: ""
       }
     ],
     undergraduateStudents: [
