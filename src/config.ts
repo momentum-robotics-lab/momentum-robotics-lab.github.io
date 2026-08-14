@@ -38,7 +38,7 @@ export const siteConfig = {
       name: "Soft Robotic Dynamic In-Hand Pen Spinning",
       description:
         "Dynamic in-hand manipulation with a soft hand via trial-and-error from real-world data, discovering grasping/spinning primitives for robust pen spinning and generalizing to other objects.",
-      link: "https://arxiv.org/abs/2411.12734",
+      link: "https://soft-spin.github.io/",
       subtitle: "Yunchao Yao, Uksang Yoo, Jean Oh, Christopher G. Atkeson, Jeffrey Ichnowski",
       skills: ["Soft Robotics", "Dynamic Manipulation", "In-Hand Manipulation", "RL/Auto-Labeling"],
     },
@@ -46,7 +46,7 @@ export const siteConfig = {
       name: "Soft and Compliant Contact-Rich Hair Manipulation and Care",
       description:
         "MOE-Hair soft robot with visual force sensing performs hair-care tasks with lower forces and improved comfort and effectiveness.",
-      link: "https://arxiv.org/abs/2501.02630",
+      link: "https://moehair.github.io/",
       subtitle: "Uksang Yoo, Nathaniel Dennler, Eliot Xing, Maja Matarić, Stefanos Nikolaidis, Jeffrey Ichnowski, Jean Oh",
       skills: ["Soft Robotics", "Force Estimation", "Contact-Rich Manipulation", "HRI"],
     },

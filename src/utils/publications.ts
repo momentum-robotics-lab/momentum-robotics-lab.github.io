@@ -9,8 +9,33 @@ export interface Publication {
   url: string;
 }
 
+type VenueOverride = { venue: string; year: string };
+
+/** Jeffrey Ichnowski joined CMU's Robotics Institute in January 2023. */
+const CMU_START_YEAR = 2023;
+
+const KNOWN_VENUE_NAMES = [
+  "NeurIPS",
+  "CoRL",
+  "IROS",
+  "ICRA",
+  "RSS",
+  "HRI",
+  "ACC",
+  "CASE",
+  "WAFR",
+  "Humanoids",
+  "IEEE RA-L",
+  "IJRR",
+  "IEEE T-RO",
+  "IEEE T-ASE",
+  "Science Robotics",
+  "ISRR",
+  "ICLR",
+];
+
 /**
- * Confirmed accepted venues (proceedings or the lab's selected-works page).
+ * Confirmed accepted venues (proceedings, project pages, or arXiv comments).
  * Do not add 2026 conference names from Google Scholar alone — Scholar often
  * stores the submission target before acceptance.
  */
@@ -20,6 +45,10 @@ const VENUE_OVERRIDES: { match: RegExp; venue: string; year: string }[] = [
   { match: /2501\.01715|cloth[\s-]?splatting/, venue: "CoRL", year: "2024" },
   { match: /2503\.01078|kinesoft/, venue: "CoRL", year: "2025" },
   { match: /2407\.00548|korol/, venue: "CoRL", year: "2024" },
+  { match: /2311\.05600|fogros2-config|fogros2-sky/, venue: "ICRA", year: "2024" },
+  { match: /2510\.06199|dymo-hair/, venue: "ICRA", year: "2026" },
+  { match: /2511\.06202|expres-vla/, venue: "ICRA", year: "2026" },
+  { match: /2608\.09127/, venue: "RSS", year: "2026" },
 ];
 
 const STOPWORDS = new Set([
@@ -41,6 +70,9 @@ const STOPWORDS = new Set([
   "towards",
 ]);
 
+const arxivVenueCache = new Map<string, VenueOverride>();
+const arxivFetchedIds = new Set<string>();
+
 export async function loadPublications(): Promise<Record<string, Publication[]>> {
   try {
     const publicationsPath = path.join(
@@ -60,14 +92,19 @@ export async function getPublicationsForMember(memberName: string) {
   const publications = await loadPublications();
   const memberPubs = publications[memberName] || [];
   const catalog = Object.values(publications).flat();
-  return finalizePublications(memberPubs, catalog);
+  const pubs = await finalizePublications(memberPubs, catalog);
+  if (memberName === "Jeffrey Ichnowski") {
+    return pubs.filter(isCmuEra);
+  }
+  return pubs;
 }
 
 export async function getLabPublications(): Promise<Publication[]> {
   const publications = await loadPublications();
   const jeff = publications["Jeffrey Ichnowski"] || [];
   const catalog = Object.values(publications).flat();
-  return finalizePublications(jeff, catalog);
+  const pubs = await finalizePublications(jeff, catalog);
+  return pubs.filter(isCmuEra);
 }
 
 export async function getRecentLabPublications(limit = 12) {
@@ -75,10 +112,11 @@ export async function getRecentLabPublications(limit = 12) {
   return pubs.slice(0, limit);
 }
 
-function finalizePublications(
+async function finalizePublications(
   pubs: Publication[],
   catalog: Publication[],
-): Publication[] {
+): Promise<Publication[]> {
+  await loadArxivVenues(pubs);
   const enriched = pubs.map((pub) =>
     formatPublication(enrichVenue(pub, catalog)),
   );
@@ -89,11 +127,34 @@ function finalizePublications(
   });
 }
 
+function publicationArxiv(pub: Publication) {
+  return extractArxiv(`${pub.title} ${pub.venue} ${pub.url}`);
+}
+
 function arxivSortKey(pub: Publication) {
-  const id = extractArxiv(`${pub.venue} ${pub.url}`);
+  const id = publicationArxiv(pub);
   if (!id) return 0;
   const [yy, num] = id.split(".").map(Number);
   return (yy || 0) * 100000 + (num || 0);
+}
+
+function arxivYear(id: string) {
+  const yy = Number(id.slice(0, 2));
+  if (Number.isNaN(yy)) return 0;
+  return yy >= 90 ? 1900 + yy : 2000 + yy;
+}
+
+function resolvedYear(pub: Publication) {
+  const fromField = Number(pub.year);
+  if (fromField > 1900) return fromField;
+  const fromVenue = Number((pub.venue || "").match(/(19|20)\d{2}/g)?.at(-1) || 0);
+  if (fromVenue > 1900) return fromVenue;
+  const id = publicationArxiv(pub);
+  return id ? arxivYear(id) : 0;
+}
+
+function isCmuEra(pub: Publication) {
+  return resolvedYear(pub) >= CMU_START_YEAR;
 }
 
 function normalizeTitle(title: string) {
@@ -111,7 +172,9 @@ function titleTokens(title: string) {
 }
 
 function extractArxiv(text: string) {
-  const match = text.match(/arxiv[:\s]*(\d{4}\.\d{4,5})/i);
+  const match = text.match(
+    /(?:arxiv[:\s]+|arxiv\.org\/(?:abs|pdf)\/)(\d{4}\.\d{4,5})/i,
+  );
   return match ? match[1] : "";
 }
 
@@ -126,6 +189,12 @@ function projectKey(title: string) {
     return head.replace(/[^a-z0-9]/g, "");
   }
   return "";
+}
+
+function titleSubtitle(title: string) {
+  const parts = title.split(/[:–—]/).slice(1);
+  const subtitle = normalizeTitle(parts.join(" "));
+  return subtitle.length >= 24 ? subtitle : "";
 }
 
 function isPreprint(venue: string) {
@@ -163,23 +232,30 @@ function jaccard(a: string[], b: string[]) {
 }
 
 function areDuplicates(a: Publication, b: Publication) {
-  const arxivA = extractArxiv(`${a.venue} ${a.title}`);
-  const arxivB = extractArxiv(`${b.venue} ${b.title}`);
+  const arxivA = publicationArxiv(a);
+  const arxivB = publicationArxiv(b);
   if (arxivA && arxivB && arxivA === arxivB) return true;
+
+  const overrideA = overrideKey(a);
+  const overrideB = overrideKey(b);
+  if (overrideA && overrideA === overrideB) return true;
 
   const keyA = normalizeTitle(a.title);
   const keyB = normalizeTitle(b.title);
   if (keyA && keyA === keyB) return true;
 
+  const subtitleA = titleSubtitle(a.title);
+  const subtitleB = titleSubtitle(b.title);
+  if (subtitleA && subtitleA === subtitleB) return true;
+
   const projectA = projectKey(a.title);
   const projectB = projectKey(b.title);
+  if (projectA && projectB && projectA === projectB) return true;
   if (projectA && projectB && projectA !== projectB) return false;
 
   const tokensA = titleTokens(a.title);
   const tokensB = titleTokens(b.title);
   const similarity = jaccard(tokensA, tokensB);
-
-  if (projectA && projectA === projectB && similarity >= 0.38) return true;
   if (similarity >= 0.72) return true;
   if (
     tokensA.length >= 5 &&
@@ -207,47 +283,71 @@ function publicationScore(pub: Publication) {
   if (!isPreprint(venue) && venue.trim() && looksPublished(venue, pub.year)) {
     score += 100;
   }
+  if (lookupOverride(pub)) score += 80;
   if (/companion|workshop/i.test(venue)) score -= 45;
+  if (/fogros2-sky/i.test(pub.title)) score -= 25;
   if (pub.year && pub.year !== "0") score += Number(pub.year);
   if (/[….]{3}|…/.test(venue) || venue.endsWith(" ")) score -= 8;
-  if (/[A-Z]/.test(pub.title.slice(1))) score += 2;
+  score += (pub.title.match(/[A-Z]/g) || []).length;
   score += Math.min(pub.title.length, 90) / 20;
   return score;
 }
 
 function pickBetter(a: Publication, b: Publication) {
-  return publicationScore(b) > publicationScore(a) ? b : a;
+  const winner = publicationScore(b) > publicationScore(a) ? b : a;
+  const other = winner === a ? b : a;
+  const winnerCaps = (winner.title.match(/[A-Z]/g) || []).length;
+  const otherCaps = (other.title.match(/[A-Z]/g) || []).length;
+  return otherCaps > winnerCaps ? { ...winner, title: other.title } : winner;
 }
 
-function lookupOverride(pub: Publication) {
-  const haystack = `${pub.title} ${pub.venue}`.toLowerCase();
-  return VENUE_OVERRIDES.find((entry) => entry.match.test(haystack));
+function lookupOverride(pub: Publication): VenueOverride | undefined {
+  const haystack = `${pub.title} ${pub.venue} ${pub.url}`.toLowerCase();
+  const manual = VENUE_OVERRIDES.find((entry) => entry.match.test(haystack));
+  if (manual) return { venue: manual.venue, year: manual.year };
+  const id = publicationArxiv(pub);
+  return id ? arxivVenueCache.get(id) : undefined;
+}
+
+function overrideKey(pub: Publication) {
+  const haystack = `${pub.title} ${pub.venue} ${pub.url}`.toLowerCase();
+  const index = VENUE_OVERRIDES.findIndex((entry) => entry.match.test(haystack));
+  if (index >= 0) return `manual:${index}`;
+  const id = publicationArxiv(pub);
+  if (id && arxivVenueCache.has(id)) return `arxiv:${id}`;
+  return "";
 }
 
 function enrichVenue(pub: Publication, catalog: Publication[]): Publication {
   const override = lookupOverride(pub);
-  if (override) {
-    return { ...pub, venue: override.venue, year: override.year };
-  }
+  let result = override
+    ? {
+        ...pub,
+        venue: override.venue,
+        year: override.year,
+        url: paperUrl(pub, publicationArxiv(pub)),
+      }
+    : pub;
 
-  if (!isPreprint(pub.venue)) return pub;
+  const best = catalog.reduce((acc, candidate) => {
+    if (candidate === pub || !areDuplicates(acc, candidate)) return acc;
+    return pickBetter(acc, candidate);
+  }, result);
 
-  const better = catalog.find(
-    (candidate) =>
-      candidate !== pub &&
-      looksPublished(candidate.venue, candidate.year) &&
-      areDuplicates(pub, candidate),
-  );
-  if (better) {
-    return {
-      ...pub,
-      venue: better.venue,
-      year: better.year || pub.year,
-      title: publicationScore(better) > publicationScore(pub) ? better.title : pub.title,
-    };
-  }
+  if (best === result) return result;
 
-  return pub;
+  const keepVenue = Boolean(override) || looksPublished(result.venue, result.year);
+  return {
+    ...result,
+    title: publicationScore(best) >= publicationScore(result) ? best.title : result.title,
+    year:
+      Number(best.year || 0) > Number(result.year || 0) ? best.year : result.year,
+    venue: keepVenue
+      ? result.venue
+      : looksPublished(best.venue, best.year)
+        ? best.venue
+        : result.venue,
+  };
 }
 
 function prettyVenue(venue: string, year: string) {
@@ -309,18 +409,27 @@ function paperUrl(pub: Publication, arxiv: string) {
 
 function formatPublication(pub: Publication): Publication {
   const override = lookupOverride(pub);
-  const arxiv = extractArxiv(`${pub.venue} ${pub.url}`);
+  const arxiv = publicationArxiv(pub);
   if (override) {
+    const year =
+      override.year && override.year !== "0"
+        ? override.year
+        : arxiv
+          ? String(arxivYear(arxiv))
+          : pub.year;
     return {
       ...pub,
-      year: override.year,
-      venue: prettyVenue(override.venue, override.year),
+      year,
+      venue: prettyVenue(override.venue, year),
       url: paperUrl(pub, arxiv),
     };
   }
 
   const yearFromVenue = (pub.venue || "").match(/(19|20)\d{2}/g)?.at(-1) || "";
-  const year = pub.year && pub.year !== "0" ? pub.year : yearFromVenue;
+  const year =
+    pub.year && pub.year !== "0"
+      ? pub.year
+      : yearFromVenue || (arxiv ? String(arxivYear(arxiv)) : "");
 
   // Don't display a 2026 conference name as accepted unless it has proceedings metadata.
   if (!looksPublished(pub.venue, year) && (arxiv || Number(year) >= 2026)) {
@@ -338,6 +447,88 @@ function formatPublication(pub: Publication): Publication {
     venue: prettyVenue(pub.venue, year),
     url: paperUrl(pub, arxiv),
   };
+}
+
+function parseArxivVenueNote(
+  comment: string,
+  journalRef: string,
+): VenueOverride | undefined {
+  const text = [journalRef, comment].filter(Boolean).join(". ");
+  if (!text.trim()) return undefined;
+
+  const submitted = /\bsubmitted\b|\bunder review\b/i.test(text);
+  const accepted =
+    /\baccepted\b|\bpublished\b|\bto appear\b|\bto be published\b|\bin proceedings\b|\bappeared\b/i.test(
+      text,
+    );
+  if (submitted && !accepted) return undefined;
+
+  const year = text.match(/(19|20)\d{2}/g)?.at(-1) || "";
+  if (!year) return undefined;
+  if (!journalRef && !accepted && Number(year) >= 2026) return undefined;
+
+  const formatted = prettyVenue(text, year);
+  if (!KNOWN_VENUE_NAMES.some((name) => formatted.startsWith(name))) {
+    return undefined;
+  }
+
+  const venue = formatted.replace(/\s+\d{4}(?=\s+Workshop|$)/, "").trim();
+  return { venue: venue || formatted, year };
+}
+
+async function loadArxivVenues(pubs: Publication[]) {
+  const ids = [
+    ...new Set(pubs.map(publicationArxiv).filter((id) => id && !arxivFetchedIds.has(id))),
+  ];
+  if (!ids.length) return;
+
+  for (let i = 0; i < ids.length; i += 50) {
+    const batch = ids.slice(i, i + 50);
+    try {
+      const url = `https://export.arxiv.org/api/query?id_list=${batch.join(",")}&max_results=${batch.length}`;
+      const response = await fetch(url, {
+        headers: {
+          "User-Agent":
+            "MomentumLabWebsite/1.0 (https://github.com/momentum-robotics-lab/momentum-robotics-lab.github.io)",
+        },
+      });
+      if (!response.ok) continue;
+      const xml = await response.text();
+      const entries = xml.split("<entry>").slice(1);
+      for (const entry of entries) {
+        const id = extractArxiv(entry);
+        if (!id) continue;
+        arxivFetchedIds.add(id);
+        const comment =
+          entry.match(/<arxiv:comment[^>]*>([\s\S]*?)<\/arxiv:comment>/)?.[1] ||
+          "";
+        const journalRef =
+          entry.match(
+            /<arxiv:journal_ref[^>]*>([\s\S]*?)<\/arxiv:journal_ref>/,
+          )?.[1] || "";
+        const parsed = parseArxivVenueNote(
+          decodeXml(comment),
+          decodeXml(journalRef),
+        );
+        if (parsed) arxivVenueCache.set(id, parsed);
+      }
+      for (const id of batch) arxivFetchedIds.add(id);
+    } catch (error) {
+      console.warn("Could not load arXiv venue metadata:", error);
+    }
+  }
+}
+
+function decodeXml(value: string) {
+  return value
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function dedupePublications(pubs: Publication[]) {
