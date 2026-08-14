@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from "../config";
+import { memberPhotoAlt, memberSlug } from "../utils/members";
 const members = siteConfig.members;
 ---
 
@@ -28,7 +29,7 @@ const members = siteConfig.members;
               <div class="flex-shrink-0">
                 <img
                   src={members.principalInvestigator.photo}
-                  alt={members.principalInvestigator.name}
+                  alt={memberPhotoAlt(members.principalInvestigator.name, "principal investigator")}
                   class="w-32 h-32 rounded-full object-cover border-4 border-gray-200"
                   onerror="this.src='https://via.placeholder.com/128x128?text=Photo'"
                   loading="lazy"
@@ -41,7 +42,7 @@ const members = siteConfig.members;
               <div class="flex-1">
                 <h4 class="text-xl font-semibold text-gray-900 mb-2">
                   <a
-                    href={`/members/${members.principalInvestigator.name.toLowerCase().replace(/\s+/g, '-')}`}
+                    href={`/members/${memberSlug(members.principalInvestigator.name)}`}
                     class="hover:text-blue-600 transition-colors"
                   >
                     {members.principalInvestigator.name}
@@ -86,9 +87,9 @@ const members = siteConfig.members;
                         Website
                       </a>
                     )}
-                    {members.principalInvestigator.links?.googleScholar && (
+                    {members.principalInvestigator.googleScholar && (
                       <a
-                        href={members.principalInvestigator.links.googleScholar}
+                        href={members.principalInvestigator.googleScholar}
                         target="_blank"
                         rel="noopener noreferrer"
                         class="text-sm px-3 py-1 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors"
@@ -136,7 +137,7 @@ const members = siteConfig.members;
                   <div class="flex gap-4">
                     <img
                       src={student.photo}
-                      alt={student.name}
+                      alt={memberPhotoAlt(student.name, "PhD student")}
                       class="w-20 h-20 rounded-full object-cover border-2 border-gray-200 flex-shrink-0"
                       onerror="this.src='https://via.placeholder.com/80x80?text=Photo'"
                       loading="lazy"
@@ -147,7 +148,7 @@ const members = siteConfig.members;
                     <div class="flex-1">
                       <h4 class="font-semibold text-gray-900 mb-1">
                         <a
-                          href={`/members/${student.name.toLowerCase().replace(/\s+/g, '-')}`}
+                          href={`/members/${memberSlug(student.name)}`}
                           class="hover:text-blue-600 transition-colors"
                         >
                           {student.name}
@@ -239,7 +240,7 @@ const members = siteConfig.members;
                   <div class="flex gap-4">
                     <img
                       src={student.photo}
-                      alt={student.name}
+                      alt={memberPhotoAlt(student.name, "master's student")}
                       class="w-20 h-20 rounded-full object-cover border-2 border-gray-200 flex-shrink-0"
                       onerror="this.src='https://via.placeholder.com/80x80?text=Photo'"
                       loading="lazy"
@@ -250,7 +251,7 @@ const members = siteConfig.members;
                     <div class="flex-1">
                       <h4 class="font-semibold text-gray-900 mb-1">
                         <a
-                          href={`/members/${student.name.toLowerCase().replace(/\s+/g, '-')}`}
+                          href={`/members/${memberSlug(student.name)}`}
                           class="hover:text-blue-600 transition-colors"
                         >
                           {student.name}
@@ -342,7 +343,7 @@ const members = siteConfig.members;
                   <div class="flex gap-4">
                     <img
                       src={student.photo}
-                      alt={student.name}
+                      alt={memberPhotoAlt(student.name, "undergraduate student")}
                       class="w-20 h-20 rounded-full object-cover border-2 border-gray-200 flex-shrink-0"
                       onerror="this.src='https://via.placeholder.com/80x80?text=Photo'"
                       loading="lazy"
@@ -353,7 +354,7 @@ const members = siteConfig.members;
                     <div class="flex-1">
                       <h4 class="font-semibold text-gray-900 mb-1">
                         <a
-                          href={`/members/${student.name.toLowerCase().replace(/\s+/g, '-')}`}
+                          href={`/members/${memberSlug(student.name)}`}
                           class="hover:text-blue-600 transition-colors"
                         >
                           {student.name}
@@ -387,7 +388,7 @@ const members = siteConfig.members;
                   <div class="flex gap-4">
                     <img
                       src={alumnus.photo}
-                      alt={alumnus.name}
+                      alt={memberPhotoAlt(alumnus.name, `former ${alumnus.degree.toLowerCase()}`)}
                       class="w-20 h-20 rounded-full object-cover border-2 border-gray-200 flex-shrink-0"
                       onerror="this.src='https://via.placeholder.com/80x80?text=Photo'"
                       loading="lazy"
@@ -398,7 +399,7 @@ const members = siteConfig.members;
                     <div class="flex-1">
                       <h4 class="font-semibold text-gray-900 mb-1">
                         <a
-                          href={`/members/${alumnus.name.toLowerCase().replace(/\s+/g, '-')}`}
+                          href={`/members/${memberSlug(alumnus.name)}`}
                           class="hover:text-blue-600 transition-colors"
                         >
                           {alumnus.name}

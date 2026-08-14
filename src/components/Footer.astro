@@ -73,14 +73,14 @@ const hasResearch = siteConfig.research && siteConfig.research.length > 0;
       <div class="hidden md:block flex flex-col md:items-end gap-4">
         <nav class="flex gap-x-8">
           <a
-            href="#about"
+            href="/#about"
             class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
             >About Lab</a
           >
           {
             hasResearch && (
               <a
-                href="#research"
+                href="/#research"
                 class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
               >
                 Research
@@ -90,7 +90,7 @@ const hasResearch = siteConfig.research && siteConfig.research.length > 0;
           {
             hasProjects && (
               <a
-                href="#selected-works"
+                href="/#selected-works"
                 class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
               >
                 Selected Works
@@ -100,7 +100,7 @@ const hasResearch = siteConfig.research && siteConfig.research.length > 0;
           {
             hasExperience && (
               <a
-                href="#experience"
+                href="/#experience"
                 class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
               >
                 Team
@@ -108,7 +108,13 @@ const hasResearch = siteConfig.research && siteConfig.research.length > 0;
             )
           }
           <a
-            href="#members"
+            href="/publications"
+            class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
+          >
+            Publications
+          </a>
+          <a
+            href="/#members"
             class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
           >
             Members

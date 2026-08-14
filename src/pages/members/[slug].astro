@@ -2,29 +2,75 @@
 import { siteConfig } from "../../config";
 import Layout from "../../layouts/Layout.astro";
 import { getPublicationsForMember } from "../../utils/publications";
+import {
+  memberMetaDescription,
+  memberPhotoAlt,
+  memberSameAs,
+  memberSlug,
+} from "../../utils/members";
 
 export async function getStaticPaths() {
-  const allMembers = [
-    siteConfig.members.principalInvestigator,
-    ...siteConfig.members.phdStudents,
-    ...siteConfig.members.mastersStudents,
-    ...siteConfig.members.undergraduateStudents,
-    ...siteConfig.members.alumni
+  const groups = [
+    { members: [siteConfig.members.principalInvestigator], role: "principal investigator" },
+    { members: siteConfig.members.phdStudents, role: "PhD student" },
+    { members: siteConfig.members.mastersStudents, role: "master's student" },
+    { members: siteConfig.members.undergraduateStudents, role: "undergraduate student" },
+    {
+      members: siteConfig.members.alumni,
+      role: "alumni",
+    },
   ];
 
-  return allMembers.map((member) => ({
-    params: { slug: member.name.toLowerCase().replace(/\s+/g, '-') },
-    props: { member },
-  }));
+  return groups.flatMap(({ members, role }) =>
+    members.map((member) => ({
+      params: { slug: memberSlug(member.name) },
+      props: {
+        member,
+        role:
+          role === "alumni"
+            ? `former ${(member.degree || "researcher").toLowerCase()}`
+            : role,
+      },
+    })),
+  );
 }
 
-const { member } = Astro.props;
-
-// Fetch publications for this member
+const { member, role } = Astro.props;
 const publications = await getPublicationsForMember(member.name);
+const description = memberMetaDescription(member, role);
+const sameAs = memberSameAs(member);
+const pageUrl = new URL(`/members/${memberSlug(member.name)}/`, siteConfig.url).href;
+const photoUrl = member.photo
+  ? new URL(member.photo, siteConfig.url).href
+  : undefined;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: member.name,
+  jobTitle: member.title || member.research || role,
+  affiliation: {
+    "@type": "ResearchOrganization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    parentOrganization: {
+      "@type": "CollegeOrUniversity",
+      name: "Carnegie Mellon University",
+    },
+  },
+  url: pageUrl,
+  ...(photoUrl ? { image: photoUrl } : {}),
+  ...(member.email ? { email: `mailto:${member.email}` } : {}),
+  ...(sameAs.length ? { sameAs } : {}),
+};
 ---
 
-<Layout title={`${member.name} - Momentum Lab`}>
+<Layout
+  title={`${member.name} | ${siteConfig.name}`}
+  description={description}
+  image={member.photo || siteConfig.ogImage}
+  jsonLd={jsonLd}
+>
   <div class="min-h-screen bg-gray-50">
     <!-- Header -->
     <header class="bg-white shadow-sm">
@@ -53,9 +99,11 @@ const publications = await getPublicationsForMember(member.name);
             <div class="text-center mb-6">
               <img
                 src={member.photo}
-                alt={member.name}
+                alt={memberPhotoAlt(member.name, role)}
                 class="w-32 h-32 rounded-full object-cover border-4 border-gray-200 mx-auto mb-4"
                 onerror="this.src='https://via.placeholder.com/128x128?text=Photo'"
+                width="128"
+                height="128"
               />
               <h2 class="text-xl font-semibold text-gray-900">{member.name}</h2>
               <p class="text-gray-600 mt-1">

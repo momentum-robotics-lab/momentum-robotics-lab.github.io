@@ -1,0 +1,85 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Layout from "../layouts/Layout.astro";
+import { siteConfig } from "../config";
+import { getLabPublications } from "../utils/publications";
+
+const publications = await getLabPublications();
+const years = [...new Set(publications.map((pub) => pub.year))].sort(
+  (a, b) => Number(b) - Number(a),
+);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `Publications | ${siteConfig.name}`,
+  url: new URL("/publications", siteConfig.url).href,
+  description:
+    "Papers from CMU's Momentum Lab on dexterous manipulation, soft robotics, 3D vision, and robot learning.",
+  isPartOf: {
+    "@type": "ResearchOrganization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
+};
+---
+
+<Layout
+  title={`Publications | ${siteConfig.name}`}
+  description="Papers from CMU's Momentum Lab on dexterous manipulation, soft robotics, 3D vision, and robot learning, including NeurIPS, IROS, and arXiv preprints."
+  jsonLd={jsonLd}
+>
+  <Header />
+  <main class="pt-24 pb-16 px-8 sm:px-12 md:px-16 lg:px-24">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+      <div class="lg:col-span-4 lg:sticky lg:top-28">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-gray-900">
+          Publications
+        </h1>
+        <div
+          class="w-[75px] h-[5px] mt-2 rounded-full"
+          style={`background-color: ${siteConfig.accentColor}`}
+        />
+        <p class="mt-6 text-gray-600 leading-relaxed">
+          Research from the Momentum Lab at Carnegie Mellon University's Robotics Institute, grouped by year.
+        </p>
+      </div>
+
+      <div class="lg:col-span-8 space-y-12">
+        {
+          years.map((year) => (
+            <section>
+              <h2 class="text-2xl font-bold text-gray-900 mb-5" style={`color: ${siteConfig.accentColor}`}>
+                {year}
+              </h2>
+              <div class="space-y-5">
+                {publications
+                  .filter((pub) => pub.year === year)
+                  .map((pub) => (
+                    <article class="border-l-4 pl-4 py-1" style={`border-color: ${siteConfig.accentColor}`}>
+                      <h3 class="font-semibold text-gray-900">
+                        <a
+                          href={pub.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="hover:text-blue-600 transition-colors"
+                        >
+                          {pub.title}
+                        </a>
+                      </h3>
+                      <p class="text-sm text-gray-600 mt-1">{pub.authors}</p>
+                      <p class="text-sm text-gray-500 mt-1">
+                        <span class="font-medium">{pub.venue}</span>
+                      </p>
+                    </article>
+                  ))}
+              </div>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

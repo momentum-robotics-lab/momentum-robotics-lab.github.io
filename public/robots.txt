@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://momentum-robotics-lab.github.io/sitemap-index.xml

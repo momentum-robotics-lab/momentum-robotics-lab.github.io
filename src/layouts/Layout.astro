@@ -1,23 +1,27 @@
 ---
+import SEO from "../components/SEO.astro";
 import { siteConfig } from "../config";
 import "../styles/global.css";
 
 export interface Props {
   title?: string;
+  description?: string;
+  image?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[] | object;
 }
 
-const { title } = Astro.props;
+const {
+  title = `${siteConfig.name} - ${siteConfig.title}`,
+  description = siteConfig.description,
+  image,
+  jsonLd,
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content={siteConfig.description} />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title || `${siteConfig.name} - ${siteConfig.title}`}</title>
+    <SEO title={title} description={description} image={image} jsonLd={jsonLd} />
   </head>
   <body>
     <slot />

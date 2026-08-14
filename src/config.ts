@@ -1,7 +1,10 @@
 export const siteConfig = {
   name: "Momentum Lab",
   title: "at Carnegie Mellon University's Robotics Institute",
-  description: "CMU's Momentum Robotics Lab",
+  description:
+    "The Momentum Lab at CMU's Robotics Institute researches dexterous manipulation, soft robotics, 3D vision, and robot learning for contact-rich automation.",
+  url: "https://momentum-robotics-lab.github.io",
+  ogImage: "/og-image.jpg",
   accentColor: "#1d4ed8",
   social: {
     // email: "your-email@example.com",
@@ -10,7 +13,7 @@ export const siteConfig = {
     github: "https://github.com/momentum-robotics-lab",
   },
   aboutMe:
-    "The Momentum Lab at Carnegie Mellon University's Robotics Institute focuses on advancing robotics research through innovative approaches to manipulation, learning, and human-robot interaction. Our research spans soft robotics, computer vision, machine learning, and multi-agent systems, with applications in healthcare, manufacturing, and everyday assistance.",
+    "The Momentum Lab at Carnegie Mellon University's Robotics Institute researches dexterous manipulation, soft robotics, 3D computer vision, and robot learning. We develop methods for in-hand and bimanual manipulation, deformable objects, contact-rich control, and vision foundation models, with applications in healthcare, manufacturing, and everyday assistance.",
   skills: ["Computer Vision", "Dexterity", "Bimanual Manipulation", "Deformable Objects", "Soft Robotics", "Dynamic Movement"],
   projects: [
     {
@@ -86,7 +89,7 @@ export const siteConfig = {
         name: "Adam Hung",
         research: "Robotics Research",
         email: "adamhung@andrew.cmu.edu",
-        photo: "/photos/adam_hung.png",
+        photo: "/photos/adam_hung.jpg",
         googleScholar: "https://scholar.google.com/citations?user=FCFyEYkAAAAJ",
         website: "https://adamhung60.github.io/",
         linkedin: "https://www.linkedin.com/in/adam-hung-389a38220/"
@@ -95,7 +98,7 @@ export const siteConfig = {
         name: "Yuemin Mao",
         research: "Dynamic Manipulation",
         email: "yueminm@andrew.cmu.edu",
-        photo: "/photos/yuemin_mao.png",
+        photo: "/photos/yuemin_mao.jpg",
         googleScholar: "https://scholar.google.com/citations?user=eNF9ijoAAAAJ",
         website: "https://yueminm.github.io/",
         twitter: "https://twitter.com/YueminMao",
@@ -116,7 +119,7 @@ export const siteConfig = {
         name: "Haoran Hao",
         research: "Machine learning, multimodal perception, and robotic manipulation",
         email: "hrhao@cmu.edu",
-        photo: "/photos/haoran_hao.png",
+        photo: "/photos/haoran_hao.jpg",
         googleScholar: "https://scholar.google.com/citations?user=sBHFXCYAAAAJ",
         website: "https://hoar012.github.io/",
         twitter: "https://x.com/hr_hao11",
