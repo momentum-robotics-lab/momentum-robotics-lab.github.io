@@ -135,6 +135,14 @@ async function fetchAllPublications() {
     ...siteConfig.members.alumni
   ];
 
+  const outputPath = path.join(process.cwd(), 'public', 'publications.json');
+  let existing = {};
+  try {
+    existing = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
+  } catch {
+    existing = {};
+  }
+
   const publicationsData = {};
 
   for (const member of allMembers) {
@@ -143,10 +151,17 @@ async function fetchAllPublications() {
       if (scholarId) {
         try {
           const publications = await fetchPublicationsFromScholar(scholarId, member.name);
-          publicationsData[member.name] = publications;
+          if (publications.length > 0) {
+            publicationsData[member.name] = publications;
+          } else if (existing[member.name]?.length) {
+            console.log(`Keeping previous ${existing[member.name].length} publications for ${member.name}`);
+            publicationsData[member.name] = existing[member.name];
+          } else {
+            publicationsData[member.name] = [];
+          }
         } catch (error) {
           console.error(`Error fetching publications for ${member.name}:`, error.message);
-          publicationsData[member.name] = [];
+          publicationsData[member.name] = existing[member.name] || [];
         }
 
         // Rate limiting - wait between requests
@@ -155,8 +170,6 @@ async function fetchAllPublications() {
     }
   }
 
-  // Save publications data to JSON file
-  const outputPath = path.join(process.cwd(), 'public', 'publications.json');
   fs.writeFileSync(outputPath, JSON.stringify(publicationsData, null, 2));
 
   console.log(`Publications data saved to ${outputPath}`);

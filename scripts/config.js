@@ -32,7 +32,7 @@ export const siteConfig = {
       {
         name: "Adam Hung",
         research: "Robotics Research",
-        email: "ahung@andrew.cmu.edu",
+        email: "adamhung@andrew.cmu.edu",
         photo: "/photos/adam_hung.png",
         googleScholar: "https://scholar.google.com/citations?user=FCFyEYkAAAAJ"
       },
@@ -42,35 +42,60 @@ export const siteConfig = {
         email: "yueminm@andrew.cmu.edu",
         photo: "/photos/yuemin_mao.png",
         googleScholar: "https://scholar.google.com/citations?user=eNF9ijoAAAAJ"
-      },
-      {
-        name: "Uksang Yoo",
-        research: "Dexterous in-hand manipulation",
-        email: "uyoo@andrew.cmu.edu",
-        photo: "/photos/uksang_yoo.png",
-        googleScholar: "https://scholar.google.com/citations?user=0bnaVQ8AAAAJ"
       }
     ],
     mastersStudents: [
       {
         name: "Arthur Jakobsson",
-        research: "ML-based Manipulation of Textiles",
+        research: "Dexterous and deformable object manipulation",
         email: "ajakobss@cmu.edu",
         photo: "/photos/arthur_jakobsson.jpg",
         googleScholar: "https://scholar.google.com/citations?user=Uo2ibwcAAAAJ"
       },
       {
-        name: "Jeffrey Ke",
-        research: "Demonstration learning for deformable object manipulation",
-        email: "jke3@cs.cmu.edu",
-        photo: "/photos/jeffery_ke.jpg",
-        googleScholar: "https://scholar.google.com/citations?user=HRKvLJEAAAAJ"
+        name: "Haoran Hao",
+        research: "Machine learning, multimodal perception, and robotic manipulation",
+        email: "hrhao@cmu.edu",
+        photo: "/photos/haoran_hao.png",
+        googleScholar: "https://scholar.google.com/citations?user=sBHFXCYAAAAJ"
       }
     ],
     undergraduateStudents: [
       // Currently no undergraduate students listed
     ],
     alumni: [
+      {
+        name: "Uksang Yoo",
+        degree: "PhD Student",
+        research: "Dexterous in-hand manipulation",
+        email: "uyoo@andrew.cmu.edu",
+        photo: "/photos/uksang_yoo.png",
+        googleScholar: "https://scholar.google.com/citations?user=0bnaVQ8AAAAJ"
+      },
+      {
+        name: "Jeffrey Ke",
+        degree: "Master Student",
+        research: "Demonstration learning for deformable object manipulation",
+        email: "jke3@cs.cmu.edu",
+        photo: "/photos/jeffery_ke.jpg",
+        googleScholar: "https://scholar.google.com/citations?user=HRKvLJEAAAAJ"
+      },
+      {
+        name: "Rajath Aralikatti",
+        degree: "Master Student",
+        research: "Manipulation using 3D Vision models",
+        email: "rajathc@cs.cmu.edu",
+        photo: "/photos/rajath_aralikatti.jpg",
+        googleScholar: "https://scholar.google.com/citations?user=bw0n3Q0AAAAJ"
+      },
+      {
+        name: "Shahram Najam Syed",
+        degree: "Master Student",
+        research: "Vision-language-action models and visuo-acoustic manipulation",
+        email: "snsyed@andrew.cmu.edu",
+        photo: "/photos/shahram_najam_syed.jpg",
+        googleScholar: "https://scholar.google.com/citations?user=3hxAYE8AAAAJ"
+      },
       {
         name: "Aviral Agrawal",
         degree: "Master Student",

@@ -18,15 +18,17 @@ export const siteConfig = {
       description:
         "Single masked RGB-D to complete 3D shapes by predicting novel-view depth, masks, and confidences, fusing them for SOTA 3D completion.",
       link: "https://rayst3r.github.io/",
+      venue: "NeurIPS 2025",
       subtitle: "Bardienus P. Duisterhof, Jan Oberst, Bowen Wen, Stan Birchfield, Deva Ramanan, Jeffrey Ichnowski",
       skills: ["3D Vision", "Novel View Synthesis", "Depth Prediction", "Transformers"],
     },
     {
       name: "Web2Grasp: Learning Functional Grasps from Web Images of Hand-Object Interactions",
       description:
-        "Extract functional human grasps from web HOI images, retarget to robot hands, and augment in simulation to train dexterous grasping models.",
-      link: "https://arxiv.org/abs/2505.05517",
-      subtitle: "Hongyi Chen, Yunchao Yao, Yufei Ye, Zhixuan Xu, Homanga Bharadhwaj, Jiashun Wang, Shubham Tulsiani, Zackory Erickson, Jeffrey Ichnowski",
+        "Reconstruct functional grasps from web images of hand-object interaction and train dexterous policies that transfer to real robot hands.",
+      link: "https://web2grasp.github.io/",
+      venue: "IROS 2026",
+      subtitle: "Hongyi Chen, Yunchao Yao, Yufei Ye, Zhixuan Xu, Homanga Bharadhwaj, Jiashun Wang, Arthur Jakobsson, Ruihan Zhao, Shubham Tulsiani, Zackory Erickson, Jeffrey Ichnowski",
       skills: ["Dexterous Manipulation", "HOI", "Sim2Real", "Learning from Web Data"],
     },
     {
@@ -98,15 +100,6 @@ export const siteConfig = {
         website: "https://yueminm.github.io/",
         twitter: "https://twitter.com/YueminMao",
         linkedin: "https://www.linkedin.com/in/yuemin-mao-02279a1a1/"
-      },
-      {
-        name: "Uksang Yoo",
-        research: "Dexterous in-hand manipulation",
-        email: "uyoo@andrew.cmu.edu",
-        photo: "/photos/uksang_yoo.png",
-        googleScholar: "https://scholar.google.com/citations?user=0bnaVQ8AAAAJ",
-        website: "https://uksangyoo.github.io",
-        twitter: "https://x.com/UksangYoo"
       }
     ],
     mastersStudents: [
@@ -120,7 +113,33 @@ export const siteConfig = {
         linkedin: "https://www.linkedin.com/in/arthurjakobsson/"
       },
       {
+        name: "Haoran Hao",
+        research: "Machine learning, multimodal perception, and robotic manipulation",
+        email: "hrhao@cmu.edu",
+        photo: "/photos/haoran_hao.png",
+        googleScholar: "https://scholar.google.com/citations?user=sBHFXCYAAAAJ",
+        website: "https://hoar012.github.io/",
+        twitter: "https://x.com/hr_hao11",
+        linkedin: "https://www.linkedin.com/in/haoran-hao-b1132537b/"
+      }
+    ],
+    undergraduateStudents: [
+      // Currently no undergraduate students listed
+    ],
+    alumni: [
+      {
+        name: "Uksang Yoo",
+        degree: "PhD Student",
+        research: "Dexterous in-hand manipulation",
+        email: "uyoo@andrew.cmu.edu",
+        photo: "/photos/uksang_yoo.png",
+        googleScholar: "https://scholar.google.com/citations?user=0bnaVQ8AAAAJ",
+        website: "https://uksangyoo.github.io",
+        twitter: "https://x.com/UksangYoo"
+      },
+      {
         name: "Jeffrey Ke",
+        degree: "Master Student",
         research: "Demonstration learning for deformable object manipulation",
         email: "jke3@cs.cmu.edu",
         photo: "/photos/jeffery_ke.jpg",
@@ -130,19 +149,31 @@ export const siteConfig = {
       },
       {
         name: "Rajath Aralikatti",
+        degree: "Master Student",
         research: "Manipulation using 3D Vision models",
         email: "rajathc@cs.cmu.edu",
         photo: "/photos/rajath_aralikatti.jpg",
-        googleScholar: "https://scholar.google.com/citations?user=bw0n3Q0AAAAJ&hl=en",
-        twitter: "",
-        linkedin: "https://www.linkedin.com/in/rajath-aralikatti/",
-        website: ""
-      }
-    ],
-    undergraduateStudents: [
-      // Currently no undergraduate students listed
-    ],
-    alumni: [
+        googleScholar: "https://scholar.google.com/citations?user=bw0n3Q0AAAAJ",
+        linkedin: "https://www.linkedin.com/in/rajath-aralikatti/"
+      },
+      {
+        name: "Xilin Zhang",
+        degree: "Master Student",
+        research: "Robot learning and computer vision",
+        photo: "/photos/xilin_zhang.jpg",
+        linkedin: "https://www.linkedin.com/in/xilin-zhang-25949b323/"
+      },
+      {
+        name: "Shahram Najam Syed",
+        degree: "Master Student",
+        research: "Vision-language-action models and visuo-acoustic manipulation",
+        email: "snsyed@andrew.cmu.edu",
+        photo: "/photos/shahram_najam_syed.jpg",
+        website: "https://shahramnajamsyed.com/",
+        googleScholar: "https://scholar.google.com/citations?user=3hxAYE8AAAAJ",
+        linkedin: "https://www.linkedin.com/in/shahram-najam-syed-2404b4114/",
+        twitter: "https://twitter.com/shahram_n95"
+      },
       {
         name: "Aviral Agrawal",
         degree: "Master Student",

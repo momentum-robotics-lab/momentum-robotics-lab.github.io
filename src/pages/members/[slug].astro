@@ -68,15 +68,17 @@ const publications = await getPublicationsForMember(member.name);
               <div>
                 <h3 class="font-semibold text-gray-800 mb-2">Contact</h3>
                 <div class="space-y-2">
-                  <a
-                    href={`mailto:${member.email}`}
-                    class="flex items-center text-sm text-gray-600 hover:text-blue-600 transition-colors"
-                  >
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                    </svg>
-                    Email
-                  </a>
+                  {member.email && (
+                    <a
+                      href={`mailto:${member.email}`}
+                      class="flex items-center text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                    >
+                      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                      </svg>
+                      Email
+                    </a>
+                  )}
 
                   {member.website && (
                     <a
@@ -103,6 +105,21 @@ const publications = await getPublicationsForMember(member.name);
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                       </svg>
                       Google Scholar
+                    </a>
+                  )}
+
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="flex items-center text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                    >
+                      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                        <circle cx="4" cy="4" r="2"></circle>
+                      </svg>
+                      LinkedIn
                     </a>
                   )}
                 </div>
