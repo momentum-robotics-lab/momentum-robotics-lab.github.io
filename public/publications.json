@@ -82,7 +82,7 @@
       "authors": "BP Duisterhof, D Ramanan, J Ichnowski, J Johnson, K Park",
       "venue": "arXiv preprint arXiv:2606.13676, 2026",
       "year": "2026",
-      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=7CKFg9EAAAAJ&cstart=100&pagesize=100&citation_for_view=7CKFg9EAAAAJ:5Ul4iDaHHb8C"
+      "url": "https://arxiv.org/abs/2606.13676"
     },
     {
       "title": "Intercepting the Future: Latent-Space Predictive World Model for Dynamic VLA Manipulation",
@@ -899,6 +899,20 @@
   ],
   "Hongyi Chen": [
     {
+      "title": "High Fidelity Capture, Reconstruction, and Transfer of Human Demonstrations for Robot-Assisted Bathing",
+      "authors": "AS Lakshmipathy, JP King, E Zuo, R Satishkumar, H Chen, J Ichnowski, ...",
+      "venue": "arXiv preprint arXiv:2608.09127, 2026",
+      "year": "2026",
+      "url": "https://arxiv.org/abs/2608.09127"
+    },
+    {
+      "title": "SemAnCorr: Semantic Anchored Correspondence for Zero-Shot Manipulation Skill Transfer",
+      "authors": "X Dong, W Baron, H Chen, U Yoo, J Ichnowski, W Zhi",
+      "venue": "arXiv preprint arXiv:2607.28382, 2026",
+      "year": "2026",
+      "url": "https://arxiv.org/abs/2607.28382"
+    },
+    {
       "title": "Dexterous manipulation policies from rgb human videos via 3d hand-object trajectory reconstruction",
       "authors": "H Chen, T Dong, T Wu, L Wang, Y Jangir, Y Niu, Y Ye, H Bharadhwaj, ...",
       "venue": "arXiv preprint arXiv:2602.09013, 2026",
@@ -1031,7 +1045,7 @@
       "authors": "BP Duisterhof, D Ramanan, J Ichnowski, J Johnson, K Park",
       "venue": "arXiv preprint arXiv:2606.13676, 2026",
       "year": "2026",
-      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=LLsYMFYAAAAJ&cstart=20&pagesize=80&citation_for_view=LLsYMFYAAAAJ:j3f4tGmQtD8C"
+      "url": "https://arxiv.org/abs/2606.13676"
     },
     {
       "title": "Object Manipulation",

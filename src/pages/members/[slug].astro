@@ -217,7 +217,8 @@ const jsonLd = {
                     </h3>
                     <p class="text-sm text-gray-600 mb-1">{pub.authors}</p>
                     <p class="text-sm text-gray-500">
-                      <span class="font-medium">{pub.venue}</span> • {pub.year}
+                      <span class="font-medium">{pub.venue}</span>
+                      {pub.year && !pub.venue.includes(pub.year) ? ` · ${pub.year}` : ""}
                     </p>
                   </div>
                 ))}
