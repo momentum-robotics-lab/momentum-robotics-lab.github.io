@@ -41,6 +41,11 @@ const KNOWN_VENUE_NAMES = [
  */
 const VENUE_OVERRIDES: { match: RegExp; venue: string; year: string }[] = [
   { match: /2505\.05517|web2grasp/, venue: "IROS", year: "2026" },
+  { match: /2604\.08528|a-slip/, venue: "IROS", year: "2026" },
+  { match: /2603\.19384|softmap/, venue: "IROS", year: "2026" },
+  { match: /2607\.01111|\bfar: failure-aware/, venue: "CoRL", year: "2026" },
+  { match: /2606\.02486|intercepting the future/, venue: "CoRL", year: "2026" },
+  { match: /2604\.22102|wiggle and go/, venue: "CoRL", year: "2026" },
   { match: /rayst3r/, venue: "NeurIPS", year: "2025" },
   { match: /2501\.01715|cloth[\s-]?splatting/, venue: "CoRL", year: "2024" },
   { match: /2503\.01078|kinesoft/, venue: "CoRL", year: "2025" },
@@ -48,7 +53,9 @@ const VENUE_OVERRIDES: { match: RegExp; venue: string; year: string }[] = [
   { match: /2311\.05600|fogros2-config|fogros2-sky/, venue: "ICRA", year: "2024" },
   { match: /2510\.06199|dymo-hair/, venue: "ICRA", year: "2026" },
   { match: /2511\.06202|expres-vla/, venue: "ICRA", year: "2026" },
+  { match: /2511\.05809|adversarial game-theoretic/, venue: "ICRA", year: "2026" },
   { match: /2608\.09127/, venue: "RSS", year: "2026" },
+  { match: /2604\.01224|force-aware retargeting/, venue: "RSS", year: "2026" },
 ];
 
 const STOPWORDS = new Set([

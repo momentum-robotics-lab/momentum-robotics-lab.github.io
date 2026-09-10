@@ -35,12 +35,13 @@ export const siteConfig = {
       skills: ["Dexterous Manipulation", "HOI", "Sim2Real", "Learning from Web Data"],
     },
     {
-      name: "Soft Robotic Dynamic In-Hand Pen Spinning",
+      name: "Wiggle and Go! System Identification for Zero-Shot Dynamic Rope Manipulation",
       description:
-        "Dynamic in-hand manipulation with a soft hand via trial-and-error from real-world data, discovering grasping/spinning primitives for robust pen spinning and generalizing to other objects.",
-      link: "https://soft-spin.github.io/",
-      subtitle: "Yunchao Yao, Uksang Yoo, Jean Oh, Christopher G. Atkeson, Jeffrey Ichnowski",
-      skills: ["Soft Robotics", "Dynamic Manipulation", "In-Hand Manipulation", "RL/Auto-Labeling"],
+        "A brief wiggle identifies rope dynamics so the robot can throw, strike, and drape zero-shot without trial-and-error on the real task.",
+      link: "https://wiggleandgo.github.io/",
+      venue: "CoRL 2026",
+      subtitle: "Arthur Jakobsson, Abhinav Mahajan, Karthik Pullalarevu, Krishna Suresh, Yunchao Yao, Yuemin Mao, Bardienus P. Duisterhof, Shahram Najam Syed, Jeffrey Ichnowski",
+      skills: ["Dynamic Manipulation", "System Identification", "Deformable Objects", "Zero-Shot"],
     },
     {
       name: "Soft and Compliant Contact-Rich Hair Manipulation and Care",
