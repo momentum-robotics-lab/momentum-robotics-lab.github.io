@@ -125,6 +125,15 @@ export const siteConfig = {
         website: "https://hoar012.github.io/",
         twitter: "https://x.com/hr_hao11",
         linkedin: "https://www.linkedin.com/in/haoran-hao-b1132537b/"
+      },
+      {
+        name: "Kalie Ching",
+        research: "Dexterous Manipulation, Humanoid Locomanipulation",
+        email: "keching@andrew.cmu.edu",
+        photo: "/photos/kalie_ching.jpg",
+        website: "https://kalieching.github.io",
+        twitter: "https://x.com/keggs_o7",
+        linkedin: "https://www.linkedin.com/in/kalie-ching/"
       }
     ],
     undergraduateStudents: [
