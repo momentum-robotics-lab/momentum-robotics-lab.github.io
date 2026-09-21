@@ -257,6 +257,9 @@ const members = siteConfig.members;
                           {student.name}
                         </a>
                       </h4>
+                      {student.program && (
+                        <p class="text-xs text-gray-500 mb-1">{student.program}</p>
+                      )}
                       <p class="text-sm text-gray-600 mb-2">
                         {student.research}
                       </p>

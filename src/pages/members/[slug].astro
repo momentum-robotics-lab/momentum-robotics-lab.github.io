@@ -78,7 +78,9 @@ const jsonLd = {
         <div class="flex items-center justify-between">
           <div>
             <h1 class="text-3xl font-bold text-gray-900">{member.name}</h1>
-            <p class="text-lg text-gray-600 mt-1">{member.research || member.title}</p>
+            <p class="text-lg text-gray-600 mt-1">
+              {[member.program, member.research || member.title].filter(Boolean).join(" · ")}
+            </p>
           </div>
           <a
             href="/#members"
@@ -106,6 +108,9 @@ const jsonLd = {
                 height="128"
               />
               <h2 class="text-xl font-semibold text-gray-900">{member.name}</h2>
+              {member.program && (
+                <p class="text-sm text-gray-500 mt-1">{member.program}</p>
+              )}
               <p class="text-gray-600 mt-1">
                 {member.research || member.title || member.degree}
               </p>

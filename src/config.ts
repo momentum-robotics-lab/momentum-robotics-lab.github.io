@@ -134,6 +134,14 @@ export const siteConfig = {
         website: "https://kalieching.github.io",
         twitter: "https://x.com/keggs_o7",
         linkedin: "https://www.linkedin.com/in/kalie-ching/"
+      },
+      {
+        name: "Prayuj Sachdev",
+        program: "MS ECE",
+        research: "Dexterous Manipulation and Sample efficient policy learning",
+        email: "prayujs@andrew.cmu.edu",
+        photo: "/photos/missing.png",
+        linkedin: "https://www.linkedin.com/in/prayuj-sachdev-4522541ba/"
       }
     ],
     undergraduateStudents: [
