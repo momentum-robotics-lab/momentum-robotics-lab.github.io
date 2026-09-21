@@ -109,6 +109,7 @@ export const siteConfig = {
     mastersStudents: [
       {
         name: "Arthur Jakobsson",
+        program: "MS Robotics",
         research: "Dexterous and deformable object manipulation",
         email: "ajakobss@cmu.edu",
         photo: "/photos/arthur_jakobsson.jpg",
@@ -118,6 +119,7 @@ export const siteConfig = {
       },
       {
         name: "Haoran Hao",
+        program: "MS Robotics",
         research: "Machine learning, multimodal perception, and robotic manipulation",
         email: "hrhao@cmu.edu",
         photo: "/photos/haoran_hao.jpg",
@@ -128,6 +130,7 @@ export const siteConfig = {
       },
       {
         name: "Kalie Ching",
+        program: "MS Robotics",
         research: "Dexterous Manipulation, Humanoid Locomanipulation",
         email: "keching@andrew.cmu.edu",
         photo: "/photos/kalie_ching.jpg",
