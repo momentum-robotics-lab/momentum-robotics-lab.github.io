@@ -56,7 +56,7 @@ export const siteConfig = {
     principalInvestigator: {
       name: "Jeffrey Ichnowski",
       title: "Assistant Professor at CMU Robotics Institute",
-      email: "jichnow@cmu.edu",
+      email: "jeffi@cmu.edu",
       website: "https://ichnow.ski/",
       linkedin: "https://www.linkedin.com/in/jeffichnowski/",
       photo: "/photos/jeffrey_ichnowski.jpg", // Placeholder - add actual photo
